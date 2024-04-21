@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: gray;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.slider {
+    width: 70%;
+    overflow: hidden;
+    margin: 2% 0;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.buttons-row {
+    margin-top: 2%;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(235, 178, 80, 0.755);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #555;
+    color: white;
+}
+
+button + button {
+    margin-left: 15px;
+}
