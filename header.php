@@ -16,8 +16,8 @@
     <li><a class="nav-link scrollto" href="#team">Team</a></li>
     <li class="dropdown"><a href="#"><span>PHP Functions</span> <i class="bi bi-chevron-down"></i></a>
       <ul>
-        <li><a href="func1form.html">PHP Function 1</a></li>
-        <li><a href="func2form.html">PHP Function 2</a></li>
+        <li><a href="func1form.php">PHP Function 1</a></li>
+        <li><a href="func2form.php">PHP Function 2</a></li>
         <li><a href="#">Drop Down 3</a></li>
       </ul>
     </li>
