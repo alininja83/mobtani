@@ -14,6 +14,6 @@ if (!$conn) {
 if(isset($_POST['addSeller'])) {
     // insert data into database
     mysqli_query($conn, "INSERT INTO `userinfo` (`name`, `email`, `password`) VALUES ('".$_POST['name']."', '".$_POST['email']."', '".$_POST['password']."')");
-    header("Location: ../admin.php");
+    header("Location: ../admin_panel.php");
 } 
 ?>
