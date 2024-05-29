@@ -5,11 +5,11 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tamrin</title>
+  <title>Rezaei</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <?php include 'bootstrap_head.php' ?>
+  <?php include 'partials/bootstrap_head.php' ?>
 
   <!-- =======================================================
   * Template Name: Bethany
@@ -22,17 +22,34 @@
 
 <body>
 
-  <?php include 'header.php' ?>
+  <?php include 'partials/header.php' ?>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
     <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
-      <div class="image-gallery">
-        <?php $images = ['image (1).jpg', 'image (2).jpg', 'image (3).jpg', 'image (4).jpg', 'image (5).jpg']; // فهرست نام فایل‌های عکس?>
-        <?php foreach ($images as $image): ?>
-          <img src="assets/img/<?php echo $image; ?>" alt="Image">
-        <?php endforeach; ?>
+      <div id="carouselExampleFade" class="carousel slide carousel-fade">
+        <div class="carousel-inner">
+            <div class="carousel-item active ">
+              <img src="assets/img/image (1).jpg" class="d-inline w-75" alt="...">
+            </div>
+            <?php $images = ['image (2).jpg', 'image (3).jpg', 'image (4).jpg', 'image (5).jpg'];?>
+            <?php foreach ($images as $image): ?>
+            <div class="carousel-item">
+            <img src="assets/img/<?php echo $image; ?>" class="d-inline w-75" alt="Image">
+            </div>
+            <?php endforeach; ?>
+        
+        </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
       </div>
+      <!-- </div> -->
     </div>
   </section><!-- End Hero -->
 
@@ -141,7 +158,7 @@
         <div class="row">
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-right">
             <div class="content">
-              <h3>Why Choose Bethany for your company website?</h3>
+              <h3>Why Choose Rezaei for your company website?</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
                 Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
@@ -646,11 +663,11 @@
 
   </main><!-- End #main -->
 
-  <?php include 'footer.php' ?>
+  <?php include 'partials/footer.php' ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include 'bootstrap_body.php' ?>
+  <?php include 'partials/bootstrap_body.php' ?>
 
 </body>
 

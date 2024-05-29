@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <?php include "bootstrap_head.php" ?>
+    <?php include "../partials/bootstrap_head.php" ?>
 </head>
 
 <?php
@@ -65,7 +65,7 @@ $result = $conn->query($sql);
         <div class="left-side" id="seller">
             <div class="title">
                 <h2>Seller</h2>
-                <form action="forms/admin_add_seller.php" method="POST" style="display: none">
+                <form action="../forms/admin_add_seller.php" method="POST" style="display: none">
                     <input type="text" name="name" placeholder="name" required><br>
                     <input type="email" name="email" placeholder="email" required><br>
                     <input type="password" name="password" placeholder="password" required><br>
@@ -141,7 +141,7 @@ $result = $conn->query($sql);
         </div>
     </section>
 
-    <?php include "bootstrap_body.php" ?>
+    <?php include "../partials/bootstrap_body.php" ?>
 </body>
 
 </html>

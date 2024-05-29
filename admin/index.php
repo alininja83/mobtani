@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "bootstrap_head.php" ?>
+    <?php include "../partials/bootstrap_head.php" ?>
     <title>Login</title>
     <style>
         form {
@@ -29,7 +29,7 @@
 <section id="hero" class="d-flex align-items-center">
 <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
     <h2>Admin Login</h2>
-    <form action="forms/login.php" method="post">
+    <form action="../forms/login.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" required><br>
         <label for="password">Password:</label>
@@ -38,7 +38,7 @@
     </form>
 </div>
 </section>
-    <?php include "bootstrap_body.php" ?>
+    <?php include "../partials/bootstrap_body.php" ?>
 </body>
 </html>
 

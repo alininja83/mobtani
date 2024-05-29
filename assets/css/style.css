@@ -1456,3 +1456,8 @@ section {
   margin: 5px; /* تعیین فاصله بین عکس‌ها */
   float: center; /* قرارگیری عکس‌ها به شکل افقی در کنار هم */
 }
+
+.slider img{
+  display: flex;
+  justify-content: center;
+}

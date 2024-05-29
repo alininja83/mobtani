@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $hashed_password)) {
             $_SESSION['userid'] = $id;
             $_SESSION['username'] = $username;
-            header("Location: ../admin_panel.php");
+            header("Location: ../admin/admin_panel.php");
             exit();
         } else {
             echo "Invalid password.";
