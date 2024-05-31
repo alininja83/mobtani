@@ -85,11 +85,16 @@ $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         // خروجی هر سطر از نتایج
                         while($row = $result->fetch_assoc()) {
-                            echo " <tr>
+                            echo " 
+                            <tr>
                             <td>" . $row["name"] . "</td>
                             <td>" . $row["email"] . "</td>
+                            <td>
+                            <a role='button' href='' class='btn btn-danger'>Delete</a>
+                            <a role='button' href='../forms/edit.php' class='btn btn-warning'>Edit</a>
+                            </td>
                             </tr>
-                                ";
+                            ";
                         }
                     }
                     ?>
