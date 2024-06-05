@@ -15,7 +15,7 @@
     <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
     <li><a class="nav-link scrollto" href="#team">Team</a></li>
     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-    <li><a class="getstarted scrollto" href="../forms/func1form.php">Add Seller Account</a></li>
+    <li><a class="getstarted scrollto" href="../forms/register.php">Add Seller Account</a></li>
   </ul>
   <i class="bi bi-list mobile-nav-toggle"></i>
 </nav><!-- .navbar -->

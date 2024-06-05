@@ -36,6 +36,15 @@
         <input type="password" name="password" required><br>
         <input type="submit" value="Login" class="mt-4 mb-3" style="width: 25% !important;">
     </form>
+
+    <h2>Admin Register</h2>
+    <form action="../forms/admin_register.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+        <input type="submit" value="Register" class="mt-4 mb-3" style="width: 25% !important;">
+    </form>
 </div>
 </section>
     <?php include "../partials/bootstrap_body.php" ?>

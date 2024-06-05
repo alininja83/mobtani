@@ -1,3 +1,30 @@
+<?php
+session_start();
+require_once '../classes/Database.php';
+require_once '../classes/User.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $user = new User($db);
+    $user->name = $_POST['name'];
+    $user->email = $_POST['email'];
+    $user->password = $_POST['password'];
+
+    if ($user->userExists()) {
+        echo "Username already exists. Please choose a different username.";
+    } else {
+        if ($user->register()) {
+            echo "User registered successfully.";
+        } else {
+            echo "Failed to register user.";
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,10 +52,11 @@
 </style>
 </head>
 <body>
+    <?php include "../partials/header.php";?>
     <section id="hero" class="d-flex align-items-center">
     <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
-        <h2 style="font-weight:bolder;font-size:larger;">edit</h2>
-        <form action="func1.php" method="POST">
+        <h2 style="font-weight:bolder;font-size:larger;">register</h2>
+        <form action="register.php" method="POST">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required><br><br>
             
@@ -42,7 +70,8 @@
         </form>
     </div>
     </section>
-    <?php include "../partials/bootstrap_body.php";
+    <?php include "../partials/footer.php";
+        include "../partials/bootstrap_body.php";
     ?>
 </body>
 </html>

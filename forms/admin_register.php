@@ -11,14 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $admin->name = $_POST['username'];
     $admin->password = $_POST['password'];
 
-    if ($admin->login()) {
-        $_SESSION['name'] = $admin->name;
-        header("Location: ../admin/admin_panel.php");
-        exit();
+    if ($admin->adminExists()) {
+        echo "Username already exists. Please choose a different username.";
     } else {
-        echo "Invalid username or password.";
+        if ($user->register()) {
+            echo "Admin registered successfully.";
+        } else {
+            echo "Failed to register Admin.";
+        }
     }
 }
 ?>
-
-

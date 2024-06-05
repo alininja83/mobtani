@@ -11,7 +11,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['userid'])) {
+if (!isset($_SESSION['name'])) {
     header("Location: forms/login.php");
     exit();
 }
@@ -48,7 +48,7 @@ $result = $conn->query($sql);
             </ul>
         </div>
         <div class="center" style="font-size: 1.2rem; font-weight: bold; color: #fff; margin-top: 1rem;">
-            <?php echo "Welcome to the admin panel, " . $_SESSION['username'] . "!";?>
+            <?php echo "Welcome to the admin panel, " . $_SESSION['name'] . "!";?>
             </div>
         <div class="right">
             <div class="profile">
@@ -90,8 +90,8 @@ $result = $conn->query($sql);
                             <td>" . $row["name"] . "</td>
                             <td>" . $row["email"] . "</td>
                             <td>
-                            <a role='button' href='' class='btn btn-danger'>Delete</a>
-                            <a role='button' href='../forms/edit.php' class='btn btn-warning'>Edit</a>
+                            <a role='button' href='../forms/delete_user.php?id=".$row['ID']." ' class='btn btn-danger'>Delete</a>
+                            <a role='button' href='../forms/update_user.php?id=".$row['ID']." ' class='btn btn-warning'>Edit</a>
                             </td>
                             </tr>
                             ";
