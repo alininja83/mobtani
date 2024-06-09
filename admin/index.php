@@ -43,8 +43,10 @@
         <input type="text" name="username" required><br>
         <label for="password">Password:</label>
         <input type="password" name="password" required><br>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required><br>
         <input type="submit" value="Register" class="mt-4 mb-3" style="width: 25% !important;">
-    </form>
+    </form><br><br>
 </div>
 </section>
     <?php include "../partials/bootstrap_body.php" ?>

@@ -1,29 +1,3 @@
-<?php
-session_start();
-require_once '../classes/Database.php';
-require_once '../classes/User.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $database = new Database();
-    $db = $database->getConnection();
-
-    $user = new User($db);
-    $user->name = $_POST['name'];
-    $user->email = $_POST['email'];
-    $user->password = $_POST['password'];
-
-    if ($user->userExists()) {
-        echo "Username already exists. Please choose a different username.";
-    } else {
-        if ($user->register()) {
-            echo "User registered successfully.";
-        } else {
-            echo "Failed to register user.";
-        }
-    }
-}
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section id="hero" class="d-flex align-items-center">
     <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
         <h2 style="font-weight:bolder;font-size:larger;">register</h2>
-        <form action="register.php" method="POST">
+        <form action="register_action.php" method="POST">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required><br><br>
             
@@ -65,6 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required><br><br>
+            
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required><br><br>
             
             <input type="submit" value="Submit" style="width: 15% !important;">
         </form>

@@ -5,201 +5,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <?php include "../partials/bootstrap_head.php" ?>
+    <!-- لینک به Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <?php
 session_start();
 
 if (!isset($_SESSION['name'])) {
-    header("Location: forms/login.php");
+    header("Location: index.php");
     exit();
 }
 
+require_once('../classes/Database.php');
 
-
-$servername = "localhost"; // نام سرور
-$username = "root"; // نام کاربری پایگاه داده
-$password = ""; // رمز عبور پایگاه داده
-$dbname = "Users"; // نام پایگاه داده که ایجاد کرده‌اید
-
-// اتصال به پایگاه داده
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// بررسی اتصال
-if (!$conn) {
-    die("failed to connect:" . mysqli_connect_error());
-}
+$db = new Database();
+$conn = $db->getConnection();
 
 $sql = "SELECT * FROM `userinfo`"; // دستور SQL برای دریافت نام و ایمیل از جدول Userinfo
 $result = $conn->query($sql);
 
-// بستن اتصال
-//$conn->close();
 ?>
 
 <body>
-    <nav class="navbar">
-        <div class="left">
-            <ul class="nav-links">
-                <li><a href="index.php">show site</a></li>
-                <li><a href="#seller">Seller</a></li>
-                <li><a href="#product">Product</a></li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.php">Show Site</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#seller">Seller</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#product">Product</a>
+                </li>
             </ul>
         </div>
-        <div class="center" style="font-size: 1.2rem; font-weight: bold; color: #fff; margin-top: 1rem;">
+        <div class="navbar-text">
             <?php echo "Welcome to the admin panel, " . $_SESSION['name'] . "!";?>
-            </div>
-        <div class="right">
-            <div class="profile">
-                <div class="profile-menu">
-                    <a href="#">Profile</a>
-                    <a href="#">Setting</a>
-                    <a href="logout.php">Logout</a>
-                </div>
+        </div>
+        <div class="dropdown ml-auto">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="profileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profile
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileMenu">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Setting</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="logout.php">Logout</a>
             </div>
         </div>
     </nav>
 
-    <section class="content">
-        <div class="left-side" id="seller">
-            <div class="title">
-                <h2>Seller</h2>
-                <form action="../forms/admin_add_seller.php" method="POST" style="display: none">
-                    <input type="text" name="name" placeholder="name" required><br>
-                    <input type="email" name="email" placeholder="email" required><br>
-                    <input type="password" name="password" placeholder="password" required><br>
-                    <input type="submit" name="addSeller" value="Add Seller">
-                </form>
-                <a href="#" onclick="document.querySelector('form').style.display = 'block'">Add Seller</a>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6" id="seller">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Seller</h2>
+                        <button class="btn btn-primary" onclick="document.querySelector('#addSellerForm').style.display = 'block'">Add Seller</button>
+                    </div>
+                    <div class="card-body">
+                        <form id="addSellerForm" action="../forms/admin_add_seller.php" method="POST" style="display: none">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" placeholder="Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" name="addSeller">Add Seller</button>
+                        </form>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Seller Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($result->num_rows > 0) {
+                                    // خروجی هر سطر از نتایج
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "
+                                        <tr>
+                                        <td>" . $row["name"] . "</td>
+                                        <td>" . $row["email"] . "</td>
+                                        <td>
+                                        <a role='button' href='#' onclick='confirmDelete(".$row['ID'].")' class='btn btn-danger btn-sm'>Delete</a>
+                                        <a role='button' href='../forms/update_user.php?id=".$row['ID']."' class='btn btn-warning btn-sm'>Edit</a>
+                                        </td>
+                                        </tr>
+                                        ";
+                                    }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Seller Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($result->num_rows > 0) {
-                        // خروجی هر سطر از نتایج
-                        while($row = $result->fetch_assoc()) {
-                            echo " 
-                            <tr>
-                            <td>" . $row["name"] . "</td>
-                            <td>" . $row["email"] . "</td>
-                            <td>
-                            <a role='button' href='../forms/delete_user.php?id=".$row['ID']." ' class='btn btn-danger'>Delete</a>
-                            <a role='button' href='../forms/update_user.php?id=".$row['ID']." ' class='btn btn-warning'>Edit</a>
-                            </td>
-                            </tr>
-                            ";
-                        }
-                    }
-                    ?>
 
-                </tbody>
-            </table>
-        </div>
-
-        <div class="right-side" id="product">
-            <div class="title">
-                <h2 class="mt-5">Product</h2>
-                <a href="#">Add Product</a>
+            <div class="col-md-6" id="product">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Product</h2>
+                        <button class="btn btn-primary">Add Product</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Product 1</td>
+                                    <td>$100</td>
+                                    <td>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Product 2</td>
+                                    <td>$200</td>
+                                    <td>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Product 3</td>
+                                    <td>$300</td>
+                                    <td>
+                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Product 1</td>
-                        <td>$100</td>
-                        <td>
-                            <a href="#"><i class="fas fa-edit"></i></a>
-                            <a href="#"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Product 2</td>
-                        <td>$200</td>
-                        <td>
-                            <a href="#"><i class="fas fa-edit"></i></a>
-                            <a href="#"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Product 3</td>
-                        <td>$300</td>
-                        <td>
-                            <a href="#"><i class="fas fa-edit"></i></a>
-                            <a href="#"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-    </section>
+    </div>
 
-    <?php include "../partials/bootstrap_body.php" ?>
+    <!-- لینک به Bootstrap JS و jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                window.location.href = '../forms/delete_user.php?id=' + id;
+            }
+        }
+    </script>
+
 </body>
 
 </html>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    .navbar {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-    }
-
-    .navbar a {
-        color: #fff;
-        text-decoration: none;
-        margin-right: 10px;
-    }
-
-    .content {
-        margin: 20px;
-    }
-
-    .content h2 {
-        margin-bottom: 10px;
-    }
-
-    .content a {
-        margin-left: 10px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .fas {
-        margin-right: 5px;
-    }
-    .profile-menu a{
-        :active {
-            color :blue;
-        }
-    }
-</style>
